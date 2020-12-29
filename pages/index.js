@@ -33,7 +33,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           Powered by{' '}
-          <img src={auth.user.photoURL || "/vercel.svg"} alt="Vercel Logo" className={styles.logo} />
+          <img src={auth?.user?.photoURL || "/vercel.svg"} alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>
     </div>
