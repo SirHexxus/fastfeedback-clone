@@ -1,29 +1,31 @@
-import Head from 'next/head'
-import { useAuth } from '../lib/auth'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import { useAuth } from '../lib/auth';
+import styles from '../styles/Home.module.css';
 
 export default function Home() {
-  const auth = useAuth()
+  const auth = useAuth();
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Fast Feedback Clone</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          FastFeedback
-        </h1>
+        <h1 className={styles.title}>FastFeedback</h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          Current User:
+          <code className={styles.code}>
+            {auth.user ? auth.user.email : 'Not Logged In'}
+          </code>
         </p>
 
-        {!auth?.user && <button onClick={(e) => auth.signinWithGithub()}>Sign In</button>}
-        {auth?.user && <button onClick={(e) => auth.signout()}>Sign Out</button>}
-        <div>{ auth?.user?.email }</div>
+        {auth.user ? (
+          <button onClick={(e) => auth.signout()}>Sign Out</button>
+        ) : (
+          <button onClick={(e) => auth.signinWithGithub()}>Sign In</button>
+        )}
       </main>
 
       <footer className={styles.footer}>
@@ -33,9 +35,13 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           Powered by{' '}
-          <img src={auth?.user?.photoURL || "/vercel.svg"} alt="Vercel Logo" className={styles.logo} />
+          <img
+            src={auth?.user?.photoURL || '/vercel.svg'}
+            alt="Vercel Logo"
+            className={styles.logo}
+          />
         </a>
       </footer>
     </div>
-  )
+  );
 }
