@@ -1,47 +1,47 @@
-import Head from 'next/head';
-import { useAuth } from '../lib/auth';
-import styles from '../styles/Home.module.css';
+import { useAuth } from '@/lib/auth';
+import { LogoIcon, GithubIcon, GoogleIcon } from '@/styles/icons';
+import { Button, Code, Flex, Heading, Text } from '@chakra-ui/react';
+// import styles from '../styles/Home.module.css';
+import EmptyState from '@/components/EmptyState';
 
 export default function Home() {
   const auth = useAuth();
   return (
-    <div className={styles.container}>
-      <Head>
+    <Flex
+      as="main"
+      direction="column"
+      align="center"
+      justify="center"
+      h="100vh"
+    >
+      <head>
         <title>Fast Feedback Clone</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>FastFeedback</h1>
+      <LogoIcon color="#000000" name="logo" boxSize={16} />
 
-        <p className={styles.description}>
-          Current User:
-          <code className={styles.code}>
-            {auth.user ? auth.user.email : 'Not Logged In'}
-          </code>
-        </p>
-
-        {auth.user ? (
-          <button onClick={(e) => auth.signout()}>Sign Out</button>
-        ) : (
-          <button onClick={(e) => auth.signinWithGithub()}>Sign In</button>
-        )}
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      {auth.user ? (
+        <Button
+          as="a"
+          href="/dashboard"
+          backgroundColor="gray.900"
+          color="white"
+          fontWeight="medium"
+          mt={4}
+          maxW="200px"
+          _hover={{ bg: 'gray.700' }}
+          _active={{
+            bg: 'gray.800',
+            transform: 'scale(0.95)'
+          }}
         >
-          Powered by{' '}
-          <img
-            src={auth?.user?.photoURL || '/vercel.svg'}
-            alt="Vercel Logo"
-            className={styles.logo}
-          />
-        </a>
-      </footer>
-    </div>
+          View Dashboard
+        </Button>
+      ) : (
+        <Button mt={4} size="small" onClick={(e) => auth.signinWithGithub()}>
+          Sign In
+        </Button>
+      )}
+    </Flex>
   );
 }
