@@ -1,8 +1,6 @@
 import { useAuth } from '@/lib/auth';
-import { LogoIcon, GithubIcon, GoogleIcon } from '@/styles/icons';
-import { Button, Code, Flex, Heading, Text } from '@chakra-ui/react';
-// import styles from '../styles/Home.module.css';
-import EmptyState from '@/components/EmptyState';
+import { LogoIcon } from '@/styles/icons';
+import { Button, Flex, Text } from '@chakra-ui/react';
 
 export default function Home() {
   const auth = useAuth();
@@ -15,10 +13,25 @@ export default function Home() {
       h="100vh"
     >
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+          if (document.cookie && document.cookie.includes('fast-feedback-auth')) {
+            window.location.href = "/dashboard"
+          }
+        `
+          }}
+        />
         <title>Fast Feedback Clone</title>
       </head>
 
       <LogoIcon color="#000000" name="logo" boxSize={16} />
+      <Text mb={4}>
+        <Text as="span" fontWeight="bold" display="inline">
+          Fast Feedback
+        </Text>
+        {` is the fastest and easiest way to add comments or reviews to your static site. It's still a work in progress, but you can check it out by logging in.`}
+      </Text>
 
       {auth.user ? (
         <Button

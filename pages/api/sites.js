@@ -1,16 +1,15 @@
-import db from '@/lib/firebase-admin';
+import { getUserSites } from '@/lib/db-admin';
+import { auth } from '@/lib/firebase-admin';
 
 export default async (req, res) => {
-  const snapshot = await db.collection('sites').get();
-  let sites = [];
-  if (snapshot.empty) {
-    console.log('No documents!');
-    return;
+  try {
+    const { uid } = await auth.verifyIdToken(req.headers.token);
+    // console.log(req.headers);
+    const sites = await getUserSites(uid);
+    // console.log(sites);
+    res.status(200).json(sites);
+  } catch (error) {
+    // console.log(req.headers);
+    res.status(500).json({ error });
   }
-
-  snapshot.forEach((doc) => {
-    sites.push({ id: doc.id, ...doc.data() });
-    console.log(doc.id, '=>', doc.data());
-  });
-  res.status(200).json({ sites });
 };
