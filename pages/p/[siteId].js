@@ -8,27 +8,36 @@ import { createFeedback } from '@/lib/db';
 import Feedback from '@/components/Feedback';
 
 export async function getStaticProps(context) {
-  const siteId = context.params.siteId;
-  const { feedback } = await getAllFeedback(siteId);
+  try {
+    const siteId = context.params.siteId;
+    const { feedback } = await getAllFeedback(siteId);
 
-  return {
-    props: {
-      initialFeedback: feedback
-    }
-  };
+    return {
+      props: {
+        initialFeedback: feedback
+      },
+      unstable_revalidate: 1
+    };
+  } catch (error) {
+    return { error };
+  }
 }
 
 export async function getStaticPaths() {
-  const { sites } = await getAllSites();
-  const paths = sites.map((site) => ({
-    params: {
-      siteId: site.id.toString()
-    }
-  }));
-  return {
-    paths,
-    fallback: false
-  };
+  try {
+    const { sites } = await getAllSites();
+    const paths = sites.map((site) => ({
+      params: {
+        siteId: site.id.toString()
+      }
+    }));
+    return {
+      paths,
+      fallback: false
+    };
+  } catch (error) {
+    return { error };
+  }
 }
 
 const SiteFeedback = ({ initialFeedback }) => {
