@@ -15,7 +15,7 @@ const logger = pino(
     },
     level: 'debug',
     base: {
-      env: process.env.ENV || 'ENV not Set',
+      env: process.env.NODE_ENV || 'ENV not Set',
       revision: process.env.VERCEL_GITHUB_COMMIT_SHA
     }
   },
