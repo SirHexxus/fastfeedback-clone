@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
 
 import { useAuth } from '@/lib/auth';
@@ -33,7 +33,7 @@ export async function getStaticPaths() {
     }));
     return {
       paths,
-      fallback: false
+      fallback: true
     };
   } catch (error) {
     return { error };
@@ -59,6 +59,7 @@ const SiteFeedback = ({ initialFeedback }) => {
       status: 'pending'
     };
 
+    inputEl.current.value = '';
     setAllFeedback([newFeedback, ...allFeedback]);
     createFeedback(newFeedback);
   };
@@ -74,14 +75,20 @@ const SiteFeedback = ({ initialFeedback }) => {
         <FormControl id="comment" my={8}>
           <FormLabel>Comment</FormLabel>
           <Input ref={inputEl} type="comment" />
-          <Button type="submit" mt={2} fontWeight="medium">
+          <Button
+            type="submit"
+            mt={4}
+            fontWeight="medium"
+            isDisabled={router.isFallback}
+          >
             Add Comment
           </Button>
         </FormControl>
       </Box>
-      {allFeedback.map((feedback) => (
-        <Feedback key={feedback.id} {...feedback} />
-      ))}
+      {allFeedback &&
+        allFeedback.map((feedback) => (
+          <Feedback key={feedback.id} {...feedback} />
+        ))}
     </Box>
   );
 };
