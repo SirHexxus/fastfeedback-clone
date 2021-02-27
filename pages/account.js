@@ -31,7 +31,7 @@ const Account = () => {
           _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}
           onClick={(e) => createCheckoutSession(user.uid)}
         >
-          Update Subscription to Free
+          Update Subscription
         </Button>
         <Button
           mt={4}
