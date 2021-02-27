@@ -8,8 +8,7 @@
 // import SiteTableHeader from '@/components/SiteTableHeader';
 // import SiteTableSkeleton from '@/components/SiteTableSkeleton';
 // import UpgradeEmptyState from '@/components/UpgradeEmptyState';
-const Dashboard = () => {
-  <div></div>
+// const Dashboard = () => {
 //   const { user } = useAuth();
 //   const { data } = useSWR(user ? ['/api/sites', user.token] : null, fetcher);
 //   const isPaidAccount = user?.stripeRole !== 'free';
@@ -41,4 +40,8 @@ const Dashboard = () => {
 //     <Dashboard />
 //   </Page>
 // );
-export default DashboardPage;
+// export default DashboardPage;
+
+export default function DashboardPage() {
+  <div></div>;
+}
