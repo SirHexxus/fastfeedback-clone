@@ -7,6 +7,13 @@ export default async (req, res) => {
 
     res.status(200).json({ feedback });
   } catch (error) {
+    console.error({
+      headers: formatObjectKeys(req.headers),
+      url: req.url,
+      method: req.method,
+      statusCode: res.statusCode,
+      errorMessage: error.message
+    });
     logger.error(
       {
         request: {
