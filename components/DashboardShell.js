@@ -31,11 +31,11 @@ const DashboardShell = ({ children }) => {
 
         <Flex justifyContent="center" alignItems="center">
           {user && (
-            <Button variant="ghost" mr={2} onClick={() => signout()}>
-              Log Out
-            </Button>
+            <NextLink href="/account" passHref>
+              <Link>Account</Link>
+            </NextLink>
           )}
-          <Avatar size="sm" src={user?.photoURL} />
+          <Avatar size="sm" ml={4} src={user?.photoURL} />
         </Flex>
       </Flex>
       <Flex backgroundColor="gray.100" p={8} height="100vh">
