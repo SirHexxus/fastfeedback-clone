@@ -37,7 +37,6 @@ const Home = ({ allFeedback }) => {
         `
               }}
             />
-            <title>Fast Feedback Clone</title>
           </head>
 
           <LogoIcon color="#000000" name="logo" boxSize={16} />

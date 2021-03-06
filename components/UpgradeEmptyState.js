@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useAuth } from '@/lib/auth';
 import { createCheckoutSession } from '@/lib/db';
-import { Button, Flex, Heading } from '@chakra-ui/react';
+import { Button, Flex, Heading, Text } from '@chakra-ui/react';
 const UpgradeEmptyState = () => {
   const { user } = useAuth();
   const [isCheckoutLoading, setCheckoutLoading] = useState(false);
